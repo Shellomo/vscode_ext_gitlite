@@ -161,7 +161,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     // List snapshots command
-    let listSnapshotsCommand = vscode.commands.registerCommand('no-git.listSnapshots', () => {
+    let listSnapshotsCommand = vscode.commands.registerCommand('no-git.listSnapshots', async () => {
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders) {
             vscode.window.showErrorMessage('No workspace folder open');
@@ -176,14 +176,73 @@ export function activate(context: vscode.ExtensionContext) {
             return;
         }
 
-        // Create and show the snapshot list in a new editor
-        const content = snapshots.map(s =>
-            `Snapshot: ${s.name}\nDate: ${new Date(s.date).toLocaleString()}\nFiles: ${s.files.length}\n${'-'.repeat(50)}`
-        ).join('\n\n');
+        // Create QuickPick items with detailed information
+        const items = snapshots.map(s => {
+            const date = new Date(s.date);
+            const timeAgo = getTimeAgo(date);
+            return {
+                label: s.name,
+                description: `${timeAgo}`,
+                detail: `Created: ${date.toLocaleString()} • Files: ${s.files.length}`,
+            };
+        });
 
-        vscode.workspace.openTextDocument({ content, language: 'text' })
-            .then(doc => vscode.window.showTextDocument(doc));
+        // Show QuickPick with snapshot list
+        const selected = await vscode.window.showQuickPick(items, {
+            placeHolder: 'Select a snapshot to view details',
+            matchOnDescription: true,
+            matchOnDetail: true
+        });
+
+        if (selected) {
+            const snapshot = snapshots.find(s => s.name === selected.label);
+            if (snapshot) {
+                // Show additional details about the selected snapshot
+                const details = [
+                    `Name: ${snapshot.name}`,
+                    `Created: ${new Date(snapshot.date).toLocaleString()}`,
+                    `Total Files: ${snapshot.files.length}`,
+                    '',
+                    'Files:',
+                    ...snapshot.files.slice(0, 10).map(f => `• ${f}`),
+                    snapshot.files.length > 10 ? `\n... and ${snapshot.files.length - 10} more files` : ''
+                ].join('\n');
+
+                vscode.window.showInformationMessage('Snapshot Details',
+                    { modal: true, detail: details },
+                    'Restore this snapshot'
+                ).then(selection => {
+                    if (selection === 'Restore this snapshot') {
+                        vscode.commands.executeCommand('no-git.restoreSnapshot');
+                    }
+                });
+            }
+        }
     });
+
+    // Helper function to format relative time
+    function getTimeAgo(date: Date): string {
+        const now = new Date();
+        const diffInSeconds = Math.floor((now.getTime() - date.getTime()) / 1000);
+
+        const intervals = {
+            year: 31536000,
+            month: 2592000,
+            week: 604800,
+            day: 86400,
+            hour: 3600,
+            minute: 60
+        };
+
+        for (const [unit, secondsInUnit] of Object.entries(intervals)) {
+            const interval = Math.floor(diffInSeconds / secondsInUnit);
+            if (interval >= 1) {
+                return `${interval} ${unit}${interval === 1 ? '' : 's'} ago`;
+            }
+        }
+
+        return 'Just now';
+    }
 
     context.subscriptions.push(createSnapshotCommand);
     context.subscriptions.push(restoreSnapshotCommand);

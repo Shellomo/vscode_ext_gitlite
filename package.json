@@ -4,6 +4,7 @@
   "description": "Simple version control without Git",
   "version": "0.0.1",
   "publisher": "Shellomo",
+  "icon": "media/no-git-icon.png",
   "license": "MIT",
   "repository": {
     "type": "git",
