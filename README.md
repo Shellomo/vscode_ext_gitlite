@@ -105,8 +105,8 @@ Be transparent about when to use Git instead:
 ## 🤝 Contributing
 
 Found a bug or have a suggestion? We'd love to hear from you!
-- Open an issue on GitHub
-- Submit a pull request
+- Open an issue on [GitHub](https://github.com/Shellomo/vscode_ext_nogit)
+- Submit a pull request 
 - Share your feedback via email
 
 ## 📜 License
@@ -116,11 +116,8 @@ MIT License - Feel free to use in your projects!
 ## 🙋‍♂️ Support
 
 Need help? Have questions?
-- Open an issue
-- Contact support
+- Open an issue on GitHub 
 
 ---
 
 Made with ❤️ for developers who want simplicity
-
-*Remember to replace all image links and URLs with actual ones when you publish the extension.*

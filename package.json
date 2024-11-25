@@ -3,13 +3,32 @@
   "displayName": "No Git",
   "description": "Simple version control without Git",
   "version": "0.0.1",
+  "publisher": "Shellomo",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shellomo/vscode_ext_nogit"
+  },
   "engines": {
     "vscode": "^1.84.0"
   },
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "keywords": [
+    "snapshot",
+    "backup",
+    "version control",
+    "save",
+    "restore",
+    "history",
+    "undo",
+    "git",
+    "no-git",
+    "simple version control",
+    "simple git"
+  ],
+  "activationEvents": [ "onCommand:no-git.createSnapshot", "onCommand:no-git.restoreSnapshot", "onCommand:no-git.listSnapshots" ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
