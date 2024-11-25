@@ -11,29 +11,37 @@ interface CodeSnapshot {
 export function activate(context: vscode.ExtensionContext) {
     console.log('Congratulations, your extension "nogit" is now active!');
     const snapshots: CodeSnapshot[] = [];
-    const snapshotsFile = context.storageUri ? path.join(context.storageUri.fsPath, 'snapshots.json') : '';
 
-    // Load existing snapshots
     if (!context.storageUri) {
         vscode.window.showErrorMessage('Storage is not available');
         return;
     }
+
+    const storageDir = context.storageUri.fsPath;
+    const snapshotsFile = path.join(storageDir, 'snapshots.json');
+
+    // Ensure storage directory exists
     try {
+        if (!fs.existsSync(storageDir)) {
+            fs.mkdirSync(storageDir, { recursive: true });
+        }
+
+        // Load or initialize snapshots file
         if (fs.existsSync(snapshotsFile)) {
             console.log('Loading snapshots from disk');
             const data = fs.readFileSync(snapshotsFile, 'utf8');
             snapshots.push(...JSON.parse(data));
-        }
-        else {
+        } else {
             console.log('No snapshots found, creating new file');
             fs.writeFileSync(snapshotsFile, '[]');
         }
     } catch (error) {
-        console.log('error', error)
-        console.error('Failed to load snapshots:', error);
+        console.error('Failed to initialize storage:', error);
+        vscode.window.showErrorMessage('Failed to initialize storage');
+        return;
     }
 
-    // Save current state
+    // Rest of your code remains the same
     let saveSnapshot = vscode.commands.registerCommand('nogit.saveSnapshot', async () => {
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders) {
