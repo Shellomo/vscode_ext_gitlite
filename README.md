@@ -1,123 +1,124 @@
-# No Git - Simple Version Control for VS Code
+# GitLite - Lightweight Version Control for VS Code
 
-![No Git Banner](media/no-git-banner-v2.png)
+![GitLite Banner](media/gitlite-banner.png)
 
-## Why No Git?
+## Why GitLite?
 
-Ever felt that Git is overkill for your small project? Need a simple way to create snapshots of your work without the complexity of a full version control system? **No Git** is your solution!
+Need version control but want to keep things simple? **GitLite** offers a lightweight approach to tracking your code changes. It's version control that gets out of your way, letting you focus on what matters - your code.
 
 ### 🎯 Perfect For:
-- **Solo Projects**: When you just need to track your own changes
-- **Learning/Teaching**: Perfect for students learning to code without the overhead of Git
-- **Quick Prototypes**: When you want to experiment safely without setting up a repository
-- **Non-Technical Users**: When you need version control but Git feels too complex
-- **Temporary Backups**: Quick snapshots before making major changes
+- **Solo Projects**: Track changes without the complexity of a full VCS
+- **Learning/Teaching**: Ideal for students learning to code
+- **Quick Prototypes**: Experiment safely with instant version saves
+- **Casual Developers**: When you need version control that just works
+- **Quick Backups**: Create instant snapshots before major changes
 
 ### 🌟 Key Features
 
-- **Simple Snapshots**: Create up to 10 named snapshots of your entire workspace
-- **One-Click Restore**: Easily return to any previous snapshot
-- **No Configuration**: Works right out of the box
-- **Visual Interface**: No command line needed
-- **Lightweight**: Minimal impact on your workspace
-- **No External Dependencies**: Everything stays in your project folder
+- **Quick Versions**: Save up to 10 named versions of your workspace
+- **Time Travel**: Instantly restore to any saved version
+- **Zero Config**: Works immediately after installation
+- **Visual Interface**: Everything through VS Code's UI
+- **Lightweight**: Minimal overhead, maximum efficiency
+- **Self-Contained**: Everything stays in your project folder
 
 ## 📸 How It Works
 
-No Git creates a `.backup` folder in your workspace where it stores snapshots of your files. Each snapshot is a complete copy of your workspace at a specific point in time, making it easy to restore your entire project to a previous state.
+GitLite creates a `.backup` folder in your workspace to store versions of your files. Each version is a complete snapshot of your workspace, making it easy to restore your entire project to any saved state.
 
 ### Available Commands:
 
-- `No Git: Create Snapshot` - Save your current workspace state
-- `No Git: Restore Snapshot` - Return to a previous snapshot
-- `No Git: List Snapshots` - View all your saved snapshots
+- `GitLite: Save Version` - Save your current workspace state
+- `GitLite: Restore Version` - Return to a previous version
+- `GitLite: Version History` - View all your saved versions
 
 ## 🚀 Getting Started
 
-1. Install the extension from VS Code Marketplace
+1. Install GitLite from VS Code Marketplace
 2. Open your project folder in VS Code
-3. Use Command Palette (Ctrl+Shift+P or Cmd+Shift+P) and type "No Git"
-4. Create your first snapshot!
+3. Use Command Palette (Ctrl+Shift+P or Cmd+Shift+P) and type "GitLite"
+4. Save your first version!
 
 ## 💡 Usage Examples
 
-### Creating a Snapshot
+### Saving a Version
 1. Make changes to your files
 2. Open Command Palette
-3. Run "No Git: Create Snapshot"
+3. Run "GitLite: Save Version"
 4. Enter a name (e.g., "before-refactoring")
 5. Done! Your code is safely stored
 
-### Restoring a Snapshot
+### Restoring a Version
 1. Open Command Palette
-2. Run "No Git: Restore Snapshot"
-3. Select the snapshot you want to restore
+2. Run "GitLite: Restore Version"
+3. Select the version you want to restore
 4. Confirm the restore
-5. Your code is back to the previous state!
+5. Your code is back to the selected state!
 
-## ⚡️ Why Choose No Git Over Git?
+## ⚡️ GitLite vs Traditional Git
 
-| Feature | No Git | Git |
-|---------|--------|-----|
+| Feature | GitLite | Traditional Git |
+|---------|---------|-----------------|
 | Learning Curve | Minutes | Days/Weeks |
 | Commands to Learn | 3 | 20+ |
-| Setup Time | None | Repository initialization required |
-| Interface | Visual | Command-line first |
-| Best For | Solo projects & quick snapshots | Team collaboration & complex versioning |
+| Setup Time | None | Repository setup required |
+| Interface | Visual | Command-line focused |
+| Best For | Solo projects & quick versions | Team collaboration & complex workflows |
 
 ## 🛡️ Safe and Secure
 
-- All snapshots are stored locally in your project
+- All versions stored locally in your project
 - No cloud storage or external services
 - No data leaves your computer
-- Clear visual confirmation before restoring snapshots
+- Clear confirmation before version restore
 
 ## 📝 Smart Features
 
-- Automatically ignores system files and folders
-- Prevents duplicate snapshot names
-- Maintains snapshot history with timestamps
-- Shows preview of changes before restore
+- Automatically skips system files and folders
+- Prevents duplicate version names
+- Maintains version history with timestamps
+- Shows preview before restore
 
 ## 🎓 Perfect for Education
 
-Teachers love No Git because:
+Educators choose GitLite because:
 - Students focus on coding, not version control
-- No need to teach Git commands
+- No version control complexity
 - Easy to demonstrate code evolution
-- Perfect for assignments and projects
+- Ideal for assignments and projects
 
-## 🚫 When Not to Use No Git
+## 🤔 When to Use Traditional Git
 
-Be transparent about when to use Git instead:
-- For team projects
-- When you need branching and merging
-- For open-source contributions
-- When you need a detailed change history
+GitLite is great for many scenarios, but consider traditional Git when you need:
+- Team collaboration features
+- Branch management
+- Remote repository hosting
+- Detailed commit history
 
 ## 📊 Technical Details
 
-- Stores snapshots in `.backup` folder
-- Uses simple JSON for metadata
+- Versions stored in `.backup` folder
+- Simple JSON metadata
 - Ignores `.backup`, `node_modules`, and hidden folders
-- Limits total snapshots to 10 for space efficiency
+- 10-version limit for efficiency
 
 ## 🤝 Contributing
 
-Found a bug or have a suggestion? We'd love to hear from you!
-- Open an issue on [GitHub](https://github.com/Shellomo/vscode_ext_nogit)
-- Submit a pull request 
-- Share your feedback via email
+We'd love to hear from you!
+- Open an issue on [GitHub](https://github.com/Shellomo/vscode_ext_gitlite)
+- Submit a pull request
+- Share your feedback
 
 ## 📜 License
 
-MIT License - Feel free to use in your projects!
+MIT License - Use freely in your projects!
 
 ## 🙋‍♂️ Support
 
-Need help? Have questions?
-- Open an issue on GitHub 
+Need help?
+- Open an issue on GitHub
+- Check our [documentation](https://github.com/Shellomo/vscode_ext_gitlite/)
 
 ---
 
-Made with ❤️ for developers who want simplicity
+Made with ❤️ by developers, for developers

@@ -1,14 +1,14 @@
 {
-  "name": "no-git",
-  "displayName": "No Git",
-  "description": "Simple version control without Git",
-  "version": "1.0.1",
+  "name": "gitlite",
+  "displayName": "GitLite",
+  "description": "Lightweight version control for VS Code. Create and manage code versions without Git complexity.",
+  "version": "1.0.5",
   "publisher": "Shellomo",
-  "icon": "media/no-git-icon.png",
+  "icon": "media/gitlite-icon.png",
   "license": "MIT",
   "repository": {
     "type": "git",
-    "url": "https://github.com/Shellomo/vscode_ext_nogit"
+    "url": "https://github.com/Shellomo/vscode_ext_gitlite"
   },
   "engines": {
     "vscode": "^1.84.0"
@@ -17,6 +17,8 @@
     "Other"
   ],
   "keywords": [
+    "git",
+    "git lite",
     "snapshot",
     "backup",
     "version control",
@@ -25,25 +27,30 @@
     "history",
     "undo",
     "git",
-    "no-git",
+    "git simple",
+    "simple git",
     "simple version control",
-    "simple git"
+    "simple git",
+    "alternative to git",
+    "gitless",
+    "git-less",
+    "git alternative"
   ],
-  "activationEvents": [ "onCommand:no-git.createSnapshot", "onCommand:no-git.restoreSnapshot", "onCommand:no-git.listSnapshots" ],
+  "activationEvents": [ "onCommand:gitlite.createSnapshot", "onCommand:gitlite.restoreSnapshot", "onCommand:gitlite.listSnapshots" ],
   "main": "./dist/extension.js",
   "contributes": {
     "commands": [
       {
-        "command": "no-git.createSnapshot",
-        "title": "No Git: Create Snapshot"
+        "command": "gitlite.createSnapshot",
+        "title": "GitLite: Create Snapshot"
       },
       {
-        "command": "no-git.restoreSnapshot",
-        "title": "No Git: Restore Snapshot"
+        "command": "gitlite.restoreSnapshot",
+        "title": "GitLite: Restore Snapshot"
       },
       {
-        "command": "no-git.listSnapshots",
-        "title": "No Git: List Snapshots"
+        "command": "gitlite.listSnapshots",
+        "title": "GitLite: List Snapshots"
       }
     ]
   },

@@ -39,7 +39,7 @@ export function activate(context: vscode.ExtensionContext) {
     };
 
     // Create snapshot command
-    let createSnapshotCommand = vscode.commands.registerCommand('no-git.createSnapshot', async () => {
+    let createSnapshotCommand = vscode.commands.registerCommand('gitlite.createSnapshot', async () => {
         TelemetryLog('info', 'Create snapshot command invoked');
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders) {
@@ -110,7 +110,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     // Restore snapshot command
-    let restoreSnapshotCommand = vscode.commands.registerCommand('no-git.restoreSnapshot', async () => {
+    let restoreSnapshotCommand = vscode.commands.registerCommand('gitlite.restoreSnapshot', async () => {
         TelemetryLog('info', 'Restore snapshot command invoked');
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders) {
@@ -178,7 +178,7 @@ export function activate(context: vscode.ExtensionContext) {
     });
 
     // List snapshots command
-    let listSnapshotsCommand = vscode.commands.registerCommand('no-git.listSnapshots', async () => {
+    let listSnapshotsCommand = vscode.commands.registerCommand('gitlite.listSnapshots', async () => {
         TelemetryLog('info', 'List snapshots command invoked');
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders) {
@@ -233,7 +233,7 @@ export function activate(context: vscode.ExtensionContext) {
                     'Restore this snapshot'
                 ).then(selection => {
                     if (selection === 'Restore this snapshot') {
-                        vscode.commands.executeCommand('no-git.restoreSnapshot');
+                        vscode.commands.executeCommand('gitlite.restoreSnapshot');
                     }
                 });
             }
