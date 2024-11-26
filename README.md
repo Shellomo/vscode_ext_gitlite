@@ -1,6 +1,7 @@
 # GitLite - Lightweight Version Control for VS Code
 
-<img src="media/banner.png">
+![GitLite Banner](media/banner.png)
+
 
 ## Why GitLite?
 
