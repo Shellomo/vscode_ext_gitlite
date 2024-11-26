@@ -2,7 +2,7 @@
   "name": "no-git",
   "displayName": "No Git",
   "description": "Simple version control without Git",
-  "version": "0.0.1",
+  "version": "1.0.1",
   "publisher": "Shellomo",
   "icon": "media/no-git-icon.png",
   "license": "MIT",
@@ -55,6 +55,9 @@
     "lint": "eslint src --ext ts",
     "pretest": "npm run compile && npm run lint",
     "test": "node ./out/test/runTest.js"
+  },
+  "dependencies": {
+    "@vscode/extension-telemetry": "^0.9.8"
   },
   "devDependencies": {
     "@types/glob": "^8.1.0",

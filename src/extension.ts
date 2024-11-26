@@ -1,6 +1,7 @@
 import * as vscode from 'vscode';
 import * as fs from 'fs';
 import * as path from 'path';
+import { initializeTelemetryReporter, TelemetryLog } from './telemetry';
 
 interface Snapshot {
     name: string;
@@ -9,6 +10,10 @@ interface Snapshot {
 }
 
 export function activate(context: vscode.ExtensionContext) {
+
+    initializeTelemetryReporter(context);
+    TelemetryLog('info', 'Extension activated');
+
     // Create backup directory if it doesn't exist
     const createBackupDir = (workspacePath: string) => {
         const backupPath = path.join(workspacePath, '.backup');
@@ -35,6 +40,7 @@ export function activate(context: vscode.ExtensionContext) {
 
     // Create snapshot command
     let createSnapshotCommand = vscode.commands.registerCommand('no-git.createSnapshot', async () => {
+        TelemetryLog('info', 'Create snapshot command invoked');
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders) {
             vscode.window.showErrorMessage('No workspace folder open');
@@ -46,7 +52,9 @@ export function activate(context: vscode.ExtensionContext) {
         const snapshots = loadSnapshots(workspacePath);
 
         if (snapshots.length >= 10) {
-            vscode.window.showErrorMessage('Maximum number of snapshots (10) reached. Please delete some snapshots first.');
+            const message = 'Maximum number of snapshots (10) reached. Please delete some snapshots first.';
+            TelemetryLog('warning', message);
+            vscode.window.showErrorMessage(message);
             return;
         }
 
@@ -56,6 +64,7 @@ export function activate(context: vscode.ExtensionContext) {
         });
 
         if (!snapshotName) {
+            TelemetryLog('info', 'Snapshot creation cancelled');
             return;
         }
 
@@ -96,13 +105,16 @@ export function activate(context: vscode.ExtensionContext) {
         });
         saveSnapshots(workspacePath, snapshots);
 
+        TelemetryLog('info', `Snapshot "${snapshotName}" created`);
         vscode.window.showInformationMessage(`Snapshot "${snapshotName}" created successfully`);
     });
 
     // Restore snapshot command
     let restoreSnapshotCommand = vscode.commands.registerCommand('no-git.restoreSnapshot', async () => {
+        TelemetryLog('info', 'Restore snapshot command invoked');
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders) {
+            TelemetryLog('warning', 'No workspace folder open');
             vscode.window.showErrorMessage('No workspace folder open');
             return;
         }
@@ -111,6 +123,7 @@ export function activate(context: vscode.ExtensionContext) {
         const snapshots = loadSnapshots(workspacePath);
 
         if (snapshots.length === 0) {
+            TelemetryLog('warning', 'No snapshots available');
             vscode.window.showErrorMessage('No snapshots available');
             return;
         }
@@ -125,11 +138,14 @@ export function activate(context: vscode.ExtensionContext) {
         });
 
         if (!selected) {
+            TelemetryLog('info', 'Restore snapshot cancelled');
             return;
         }
+        TelemetryLog('info', `Restoring snapshot "${selected.label}"`);
 
         const snapshot = snapshots.find(s => s.name === selected.label);
         if (!snapshot) {
+            TelemetryLog('error', `Snapshot "${selected.label}" not found`);
             return;
         }
 
@@ -139,6 +155,7 @@ export function activate(context: vscode.ExtensionContext) {
         );
 
         if (confirm !== 'Yes') {
+            TelemetryLog('info', 'Restore snapshot cancelled by user after overwrite warning');
             return;
         }
 
@@ -156,14 +173,16 @@ export function activate(context: vscode.ExtensionContext) {
             // Copy file
             fs.copyFileSync(sourcePath, targetPath);
         }
-
+        TelemetryLog('info', `Snapshot "${snapshot.name}" restored`);
         vscode.window.showInformationMessage(`Snapshot "${snapshot.name}" restored successfully`);
     });
 
     // List snapshots command
     let listSnapshotsCommand = vscode.commands.registerCommand('no-git.listSnapshots', async () => {
+        TelemetryLog('info', 'List snapshots command invoked');
         const workspaceFolders = vscode.workspace.workspaceFolders;
         if (!workspaceFolders) {
+            TelemetryLog('warning', 'No workspace folder open');
             vscode.window.showErrorMessage('No workspace folder open');
             return;
         }
@@ -172,6 +191,7 @@ export function activate(context: vscode.ExtensionContext) {
         const snapshots = loadSnapshots(workspacePath);
 
         if (snapshots.length === 0) {
+            TelemetryLog('info', 'No snapshots available');
             vscode.window.showInformationMessage('No snapshots available');
             return;
         }
@@ -249,4 +269,6 @@ export function activate(context: vscode.ExtensionContext) {
     context.subscriptions.push(listSnapshotsCommand);
 }
 
-export function deactivate() {}
+export function deactivate() {
+    TelemetryLog('info', 'Extension deactivated');
+}
